@@ -1,51 +1,89 @@
-import java.util.ArrayList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 
 public class RomanController {
 
-    public static void main(String[] args) {
-        RomanController test = new RomanController();
-        System.out.println(test.intToRoman(321));
+    RomanMethod method = new RomanMethod();
+
+    @FXML
+    private Button convert;
+
+    @FXML
+    private MenuButton fromButton;
+
+    @FXML
+    private MenuItem fromNumber;
+
+    @FXML
+    private MenuItem fromRoman;
+
+    @FXML
+    private TextArea inputField;
+
+    @FXML
+    private TextArea outputField;
+
+    @FXML
+    private Button reset;
+
+    @FXML
+    private MenuButton toButton;
+
+    @FXML
+    private MenuItem toNumber;
+
+    @FXML
+    private MenuItem toRoman;
+
+    
+    @FXML
+    void handleFromNumber(ActionEvent event) {
+        fromButton.setText("Number");
+        toButton.setText("Roman");
+    }
+    
+    @FXML
+    void handleFromRoman(ActionEvent event) {
+        fromButton.setText("Roman");
+        toButton.setText("Number");
+    }
+    
+    @FXML
+    void handleToNumber(ActionEvent event) {
+        fromButton.setText("Roman");
+        toButton.setText("Number");
+    }
+    
+    @FXML
+    void handleToRoman(ActionEvent event) {
+        fromButton.setText("Number");
+        toButton.setText("Roman");
+    }
+    
+    @FXML
+    void handleConvert(ActionEvent event){
+        if (fromButton.getText() == "Roman"){
+            String input = inputField.getText();
+            System.out.println(input);
+            int answer = method.romanToInt(input);
+            String answeString = Integer.toString(answer);
+            outputField.setText(answeString);
+        }
+        else if (fromButton.getText() == "Number") {
+            int input = Integer.parseInt(inputField.getText());
+            String answer = method.intToRoman(input);
+            outputField.setText(answer);
+        }
     }
 
-    Character [] symbol = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
-    int[] value = {1, 5, 10, 50, 100, 500, 1000};
-    ArrayList<Integer> temp = new ArrayList<>();
-    int outputInt = 0;
-    String outputSymbol = "";
-
-    public int romanToInt(String s) {
-        String string = s.toUpperCase();
-
-        for (int i = 0; i < string.length(); i++) {
-            for (int j = 0; j < symbol.length; j++) {
-                if (string.charAt(i) == symbol[j]) {
-                    temp.add(value[j]);
-                }
-            }
-        }
-
-        for (int i = 0; i < temp.size(); i++) {
-            outputInt += temp.get(i);
-            if (i > 0 && temp.get(i) > temp.get(i-1)){
-                outputInt -= 2*temp.get(i-1);
-            }
-            System.out.println(outputInt);
-        }
-
-        return outputInt;
+    @FXML
+    void handleReset(ActionEvent event) {
+        inputField.setText("");
+        outputField.setText("");
     }
 
-    public String intToRoman(int n) {
-        
-        while (n > 0) {
-            for (int i = value.length - 1; i >= 0; i--) {
-                if (n >= value[i]) {
-                    outputSymbol += symbol[i];
-                    n -= value[i];
-                    break;
-                }
-            }
-        }
-        return outputSymbol;
-    }
 }
