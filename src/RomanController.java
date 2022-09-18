@@ -66,6 +66,7 @@ public class RomanController {
     
     @FXML
     void handleConvert(ActionEvent event){
+        //convert roman to int
         if (fromButton.getText() == "Roman"){
             String input = inputField.getText();
             System.out.println(input);
@@ -73,6 +74,7 @@ public class RomanController {
             String answeString = Integer.toString(answer);
             outputField.setText(answeString);
         }
+        //convert int to roman
         else if (fromButton.getText() == "Number") {
             try {
                 int input = Integer.parseInt(inputField.getText());
