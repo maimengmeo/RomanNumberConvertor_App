@@ -74,9 +74,14 @@ public class RomanController {
             outputField.setText(answeString);
         }
         else if (fromButton.getText() == "Number") {
-            int input = Integer.parseInt(inputField.getText());
-            String answer = method.intToRoman(input);
-            outputField.setText(answer);
+            try {
+                int input = Integer.parseInt(inputField.getText());
+                String answer = method.intToRoman(input);
+                outputField.setText(answer);
+            } catch (NumberFormatException e) {
+                // TODO: handle exception
+                outputField.setText("Please enter a round number");
+            }
         }
     }
 
